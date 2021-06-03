@@ -1,0 +1,6 @@
+[*]
+
+# 行尾控制符
+end_of_line = lf
+# 文件结尾空行
+insert_final_newline = true
