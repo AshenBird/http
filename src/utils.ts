@@ -1,4 +1,4 @@
-import { APIOption, APIOptionRaw, Hooks, HttpOptions } from "./interface";
+import { APIOption, APIOptionRaw, Hooks, HttpOptions, Modules } from "./type";
 import { Key as Param, pathToRegexp } from "path-to-regexp";
 import { AxiosRequestConfig } from "axios";
 export function optionSplit({
@@ -10,7 +10,7 @@ export function optionSplit({
   ...axiosOptions
 }: HttpOptions): {
   hooks?: Hooks;
-  modules?: Record<string, HttpOptions>;
+  modules?: Modules;
   APIs?: Record<string, APIOptionRaw>;
   axiosOptions?: AxiosRequestConfig;
   baseURL?: string;

@@ -1,103 +1,64 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  Method,
-} from "axios";
-import { methods } from "./constants";
+import axios, { AxiosError, AxiosInstance, Method } from "axios";
+
 import {
+  methods,
+  AXIOS_INSTANCE,
+  OPTION_RAW,
+  API_STORE,
+  MODULE_STORE,
+  HOOKS,
+  ADDON_URL,
+} from "./constants";
+
+import {
+  APIList,
   APIOption,
   APIOptionRaw,
+  F,
   HookNames,
   HooksOption,
   HooksQuery,
   HttpOptions,
   Modules,
-} from "./interface";
+  _ApiRaw,
+} from "./type";
+
 import { optionSplit, payloadHandle } from "./utils";
-const AXIOS_INSTANCE = Symbol();
-const OPTION_RAW = Symbol();
-const API_STORE = Symbol();
-const MODULE_STORE = Symbol();
-const HOOKS = Symbol();
-const ADDON_URL = Symbol();
-
-type F<P = unknown, R = unknown> = ReturnType<DefineAPI<P, R>>;
-
-type AxiosRequestMethod<T = any, R = AxiosResponse<T>> = (
-  config: AxiosRequestConfig
-) => Promise<R>;
-
-type ApiLitsItem =
-  | {
-      [name: string]: F<any, any>;
-    }
-  | boolean;
-
-type APIList<AL extends ApiLitsItem, ML extends Modules> = {
-  [K in keyof AL & string]: AL[K] extends F
-    ? ReturnType<AL[K]>
-    : (payload?: unknown) => unknown;
-} &
-  // 模块类型签名
-  {
-    [ＭK in keyof ML & string]: APIList<
-      ML[ＭK]["APIs"] extends ApiLitsItem ? ML[ＭK]["APIs"] : ApiLitsItem,
-      ML[ＭK]["modules"] extends Modules ? ML[ＭK]["modules"] : Modules
-    >;
-  } &
-  AxiosRequestMethod;
-
-// 定义API
-export type DefineAPI<P, R> = (
-  option: APIOptionRaw
-) => <AR, MR>(
-  $http: Http<AR, MR>,
-  name: string
-) => (payload?: P | undefined) => R;
-
-export type CreateHttp<AR, MR> = {
-  [OPTION_RAW]: HttpOptions<AR, MR>;
-  [AXIOS_INSTANCE]: AxiosInstance;
-} & AR;
 
 // 请求类
-export class Http<AR = {}, MR = {}> {
-  [OPTION_RAW]: HttpOptions<AR, MR>;
-  [AXIOS_INSTANCE]: AxiosInstance;
-  [API_STORE] = new Map();
-  [MODULE_STORE] = new Map();
+export class Http<ApiRaw extends _ApiRaw = {}, ModuleRaw extends Modules = {}> {
+  [OPTION_RAW]: HttpOptions<ApiRaw, ModuleRaw>; // 原始配置
+  [AXIOS_INSTANCE]: AxiosInstance; // axios 实例
+  [API_STORE] = new Map(); // api 记录
+  [MODULE_STORE] = new Map(); // 模块 记录
   [HOOKS]: HooksQuery = {
     success: [],
     fail: [],
     before: [],
     after: [],
     beforeTransform: [],
-  };
-  [ADDON_URL] = "";
-  // 构造函数
-  constructor(options: HttpOptions<AR, MR>, fModule?: Http) {
-    // 划分配置项
-    const { hooks, modules, APIs, axiosOptions, baseURL, url } =
-      optionSplit(options);
-    // 保存原始配置
-    this[OPTION_RAW] = options;
+  }; // 全局钩子
+  [ADDON_URL] = ""; // 前缀 url 主要用于父子模块
 
-    // 绑定 axios 实例
+  constructor(options: HttpOptions<ApiRaw, ModuleRaw>, fModule?: Http) {
+    const { hooks, modules, APIs, axiosOptions, baseURL, url } =
+      optionSplit(options); // 划分配置项
+
+    this[OPTION_RAW] = options; // 保存原始配置
+
     this[AXIOS_INSTANCE] = (() => {
       if (fModule) {
         return fModule[AXIOS_INSTANCE];
       }
       return axios.create(
-        Object.assign(axiosOptions, { baseURL: baseURL || url })
+        Object.assign(axiosOptions || {}, { baseURL: baseURL || url })
       );
-    })();
+    })(); // 绑定 axios 实例
 
     this[ADDON_URL] = (() => {
       if (!fModule) return "";
       return fModule[ADDON_URL] + baseURL || url || "";
-    })();
+    })(); // 初始化前缀url
 
     // 生成当前实例 钩子 队列
     if (fModule && fModule[HOOKS]) {
@@ -135,16 +96,22 @@ export class Http<AR = {}, MR = {}> {
 
     // 挂载模块
     if (modules) {
-      for (const [name, mod] of Object.entries<HttpOptions>(modules)) {
-        this[MODULE_STORE].set(name, createHttp(mod, this));
+      for (const [name, mod] of Object.entries<HttpOptions<ApiRaw, ModuleRaw>>(
+        // @ts-ignore
+        modules
+      )) {
+        this[MODULE_STORE].set(name, createHttp<ApiRaw, ModuleRaw>(mod, this));
       }
     }
   }
 
   // 定义api函数
   static defineAPI<P, R>(localOption: APIOptionRaw = {}) {
-    return <AR, MR>(
-      $http: Http<AR, MR>,
+    return <
+      ApiRaw extends { [name: string]: F<any, any> },
+      ModuleRaw extends Modules
+    >(
+      $http: Http<ApiRaw, ModuleRaw>,
       name: string
     ): ((payload?: P) => Promise<R>) => {
       const result = new Proxy(
@@ -280,9 +247,12 @@ export class Http<AR = {}, MR = {}> {
 
   // HTTP 对象工厂函数
   static createHttp<
-    AR extends { [name: string]: F<any, any> },
-    MR extends Modules
-  >(options: HttpOptions<AR, MR>, fModule?: Http): APIList<AR, MR> & unknown {
+    ApiRaw extends { [name: string]: F<any, any> },
+    ModuleRaw extends Modules
+  >(
+    options: HttpOptions<ApiRaw, ModuleRaw>,
+    fModule?: Http<ApiRaw, ModuleRaw>
+  ): APIList<ApiRaw, ModuleRaw> & unknown {
     const httpInstance = new Http(options, fModule);
     const shadowFunc = () => {};
     const result = new Proxy(shadowFunc, {
@@ -315,7 +285,7 @@ export class Http<AR = {}, MR = {}> {
       },
     });
 
-    return result as unknown as APIList<AR, MR> & unknown;
+    return result as unknown as APIList<ApiRaw, ModuleRaw> & unknown;
   }
 
   // static mountModule() {}
