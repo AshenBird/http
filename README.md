@@ -22,7 +22,13 @@ interface HttpBody<
   meta?: S;
 }
 
+// createHttp 接受一个配置对象作为参数，这个配置对象是基于 axios 配置项进行扩展的，axios 的配置项都可以接受，并传递给 axios
 const httpServer = createHttp({
+  /**
+   * hooks
+   * 自定义选项
+   * 可以用来自定义全局钩子，每个请求都会调用
+   */
   hooks: {
     // 全局前置钩子
     before(option) {
@@ -46,8 +52,17 @@ const httpServer = createHttp({
       return Promise.reject(e);
     },
   },
-  // 基础路径，默认为 "/"
+  /**
+   * baseURL
+   * axios 选项
+   * @default "/"
+   */
   baseURL: "/api",
+  /**
+   * APIs
+   * 自定义选项
+   * 预定义接口
+   */
   APIs: {
     // 定义一个名为 test 的接口，访问路径为 /test/a
     test: defineAPI<{ test: "test" }>({
@@ -64,6 +79,11 @@ const httpServer = createHttp({
       }, // 接口私有的钩子，跟全局钩子的字段一样
     }),
   },
+  /**
+   * modules
+   * 自定义选项
+   * 预定义模块
+   */
   modules: {
     user: {
       baseURL: "/user",
@@ -84,7 +104,10 @@ const httpServer = createHttp({
       },
     },
   },
-  // axios 的所有选项都默认可以使用
+  /**
+   * headers
+   * axios 选项
+   */
   headers: {
     "X-Requested-With": "XMLHttpRequest",
   },
@@ -97,5 +120,3 @@ httpServer.user.info();
 
 export default httpServer;
 ```
-
-## API

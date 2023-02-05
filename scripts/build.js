@@ -2,6 +2,8 @@ const fs = require("fs-extra");
 const { resolve } = require("path");
 const esbuild = require("esbuild");
 const { dtsPlugin } = require("esbuild-plugin-d.ts");
+
+// 清空输出目录
 fs.emptyDirSync(resolve(__dirname, "../dist"));
 
 // 通用构建配置
@@ -9,10 +11,10 @@ const commonProps = {
   entryPoints: ["src/index.ts"],
   bundle: true,
   tsconfig: "tsconfig.json",
-  plugins: [dtsPlugin()],
+  plugins: [dtsPlugin()], // 生成类型描述文件插件
 };
 
-// 构建格式
+// 导入配置
 const formatModes = [
   {
     fileName: "",
@@ -23,6 +25,8 @@ const formatModes = [
     mode: "esm",
   },
 ];
+
+// 最小化配置
 const minifyModes = [
   {
     fileName: "",
@@ -33,8 +37,10 @@ const minifyModes = [
     mode: true,
   },
 ];
+
 // 执行构建
 (async () => {
+  // 生成四种输出文件
   for (const formatConf of formatModes) {
     for (const minifyConf of minifyModes) {
       esbuild.build({
