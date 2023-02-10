@@ -1,11 +1,11 @@
-import { APIOption, APIOptionRaw, Hooks, HttpOptions } from "./interface";
+import { InnerAPIOption, APIOption, Hooks, HttpOptions, ModuleRecord } from "./type";
 import { AxiosRequestConfig } from "axios";
 export declare function optionSplit({ hooks, baseURL, url, modules, APIs, ...axiosOptions }: HttpOptions): {
     hooks?: Hooks;
-    modules?: Record<string, HttpOptions>;
-    APIs?: Record<string, APIOptionRaw>;
+    modules?: ModuleRecord;
+    APIs?: Record<string, APIOption>;
     axiosOptions?: AxiosRequestConfig;
     baseURL?: string;
     url?: string;
 };
-export declare function payloadHandle(option: APIOption): APIOption;
+export declare function payloadHandle(option: InnerAPIOption): InnerAPIOption;

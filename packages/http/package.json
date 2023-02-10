@@ -1,0 +1,45 @@
+{
+  "name": "@mcswift/http",
+  "version": "0.1.0",
+  "description": "a axios wrap",
+  "author": {
+    "name": "McSwift",
+    "email": "develop@mcswift.pro"
+  },
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "exports":{
+    "types":"./src/type.d.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "node scripts/build",
+    "watch": "node scripts/watch",
+    "generate":"tsc --emitDeclarationOnly --outDir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AshenBird/http.git"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "concurrently": "^6.2.0",
+    "esbuild": "^0.12.5",
+    "esbuild-plugin-d.ts": "^1.0.3",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "execa": "^5.1.0",
+    "fs-extra": "^10.0.0",
+    "prettier": "^2.3.0",
+    "typescript": "^4.3.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "path-to-regexp": "^6.2.0"
+  }
+}

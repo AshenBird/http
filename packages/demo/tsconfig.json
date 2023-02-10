@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames":true,
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "noImplicitThis": true,
+    "baseUrl": ".",
+    "noEmitOnError": true,
+    "types": [ ],
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "declaration": true,
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

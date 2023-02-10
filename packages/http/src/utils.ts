@@ -1,4 +1,10 @@
-import { APIOption, APIOptionRaw, Hooks, HttpOptions, Modules } from "./type";
+import {
+  InnerAPIOption,
+  APIOption,
+  Hooks,
+  HttpOptions,
+  ModuleRecord,
+} from "./type";
 import { Key as Param, pathToRegexp } from "path-to-regexp";
 import { AxiosRequestConfig } from "axios";
 export function optionSplit({
@@ -10,8 +16,8 @@ export function optionSplit({
   ...axiosOptions
 }: HttpOptions): {
   hooks?: Hooks;
-  modules?: Modules;
-  APIs?: Record<string, APIOptionRaw>;
+  modules?: ModuleRecord;
+  APIs?: Record<string, APIOption>;
   axiosOptions?: AxiosRequestConfig;
   baseURL?: string;
   url?: string;
@@ -19,7 +25,7 @@ export function optionSplit({
   return { hooks, modules, APIs, axiosOptions, baseURL, url };
 }
 
-export function payloadHandle(option: APIOption): APIOption {
+export function payloadHandle(option: InnerAPIOption): InnerAPIOption {
   const { url: urlRaw, payload: payloadRaw = {}, ...rest } = option;
   // 初始化 路径参数数组
   const keys = [] as Param[];

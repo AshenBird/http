@@ -5,9 +5,32 @@
 
 ## 简介
 
-这是一个用于基于 typescript 的客户端 http 接口调用的模式化封装。主要用于在各类项目中预定义接口，并利用 typescript 的能力提供了接口函数的提示功能。
+该模块的主要作用是在无法使用 Graphql 的场景提供类型内容安全的接口集约化定义。
+如果，有条件的情况，强烈建议使用 Graphql 避免像这样，一次性定义所有接口。
+未来，理论上，可能会提供一种简单的，松散的类型安全的接口调用模式，避免一次性进行所有接口的定义。
+现在的模式，本质上讲是源自设计之初，为了服务的项目本身的一些需求，才进行了现在的过度设计。
+
+事实上现在的模式，是一种本末倒置，并不适合大部分场景使用，
+
+这种本末倒置，导致作者也一直被类型体操折磨————当然，也有作者本人想要尝试些过去没有尝试过的特性有关。
+
+长期维护目标是，尝试一种通用的，松散的类型安全模块。
+
+目前使用的实际请求发起者是 axios，未来会进一步去掉对 axios 的依赖。
+
+随着装饰器特性进入 stage3 ，且 typescript 最新版本已经支持与 EcmaScript 标准兼容的装饰器特性，未来内部实现可能会进一步采用装饰器特性来进行解耦，并提供装饰器接口，便于用户定义接口等行为。
 
 ## 开始使用
+
+### 兼容性
+
+该项目使用了 Proxy 特性，请根据 caniuse 判断是否与你需要的环境兼容。
+
+该项目理论上讲支持 node 环境。
+
+因为目前还处于一个破坏性开发周期，暂时不列出具体的版本兼容性。
+
+### 简单使用 demo
 
 ```typescript
 import { createHttp, defineAPI } from "@mcswift/http";
@@ -64,7 +87,7 @@ const httpServer = createHttp({
    * 预定义接口
    */
   APIs: {
-    // 定义一个名为 test 的接口，访问路径为 /test/a
+    // 定义一个名为 test 的接口，访问路径为 /test/a 这个接口预期会返回一个 {test:"test"} 数据。 
     test: defineAPI<{ test: "test" }>({
       baseURL: "/test", // 局部重写 baseurl
       url: "/a", // url
@@ -98,7 +121,7 @@ const httpServer = createHttp({
         }),
         
         // 如果没有申明url，则默认直接用模块url请求 url: /api/user
-        info: defineAPI({
+        info: defineAPI<any, {foo:"bar"}>({
           method: "GET", 
         }),
       },
@@ -114,9 +137,17 @@ const httpServer = createHttp({
 });
 
 // 可以这样直接执行接口
-httpServer.test({ test: "test" });
-httpServer.user.test();
-httpServer.user.info();
+// result1:{ test: "test" }
+const result1 = httpServer.test();
+
+// result2: unknown
+const result1 = await httpServer.user.test();
+
+// result2: any
+const result2 = httpServer.user.info({foo:"bar"});
+
+// 你可以这样检查原始 api 配置, 理论上你应该把它当作一个只读参数，我暂时没有做固封操作（只是目前懒得弄了）
+console.log(httpServer.httpServer.user.info.options) // { method: "GET" }
 
 export default httpServer;
 ```

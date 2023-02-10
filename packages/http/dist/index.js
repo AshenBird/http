@@ -21,9 +21,9 @@
     return __reExport(__markAsModule(__defProp(module != null ? __create(__getProtoOf(module)) : {}, "default", module && module.__esModule && "default" in module ? { get: () => module.default, enumerable: true } : { value: module, enumerable: true })), module);
   };
 
-  // node_modules/axios/lib/helpers/bind.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/bind.js
   var require_bind = __commonJS({
-    "node_modules/axios/lib/helpers/bind.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/bind.js"(exports, module) {
       "use strict";
       module.exports = function bind(fn, thisArg) {
         return function wrap() {
@@ -37,9 +37,9 @@
     }
   });
 
-  // node_modules/axios/lib/utils.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/utils.js
   var require_utils = __commonJS({
-    "node_modules/axios/lib/utils.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/utils.js"(exports, module) {
       "use strict";
       var bind = require_bind();
       var toString = Object.prototype.toString;
@@ -102,7 +102,7 @@
         return typeof URLSearchParams !== "undefined" && val instanceof URLSearchParams;
       }
       function trim(str) {
-        return str.replace(/^\s*/, "").replace(/\s*$/, "");
+        return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, "");
       }
       function isStandardBrowserEnv() {
         if (typeof navigator !== "undefined" && (navigator.product === "ReactNative" || navigator.product === "NativeScript" || navigator.product === "NS")) {
@@ -190,9 +190,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/buildURL.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/buildURL.js
   var require_buildURL = __commonJS({
-    "node_modules/axios/lib/helpers/buildURL.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/buildURL.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       function encode(val) {
@@ -241,18 +241,20 @@
     }
   });
 
-  // node_modules/axios/lib/core/InterceptorManager.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/InterceptorManager.js
   var require_InterceptorManager = __commonJS({
-    "node_modules/axios/lib/core/InterceptorManager.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/InterceptorManager.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       function InterceptorManager() {
         this.handlers = [];
       }
-      InterceptorManager.prototype.use = function use(fulfilled, rejected) {
+      InterceptorManager.prototype.use = function use(fulfilled, rejected, options) {
         this.handlers.push({
           fulfilled,
-          rejected
+          rejected,
+          synchronous: options ? options.synchronous : false,
+          runWhen: options ? options.runWhen : null
         });
         return this.handlers.length - 1;
       };
@@ -272,33 +274,9 @@
     }
   });
 
-  // node_modules/axios/lib/core/transformData.js
-  var require_transformData = __commonJS({
-    "node_modules/axios/lib/core/transformData.js"(exports, module) {
-      "use strict";
-      var utils = require_utils();
-      module.exports = function transformData(data, headers, fns) {
-        utils.forEach(fns, function transform(fn) {
-          data = fn(data, headers);
-        });
-        return data;
-      };
-    }
-  });
-
-  // node_modules/axios/lib/cancel/isCancel.js
-  var require_isCancel = __commonJS({
-    "node_modules/axios/lib/cancel/isCancel.js"(exports, module) {
-      "use strict";
-      module.exports = function isCancel(value) {
-        return !!(value && value.__CANCEL__);
-      };
-    }
-  });
-
-  // node_modules/axios/lib/helpers/normalizeHeaderName.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/normalizeHeaderName.js
   var require_normalizeHeaderName = __commonJS({
-    "node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/normalizeHeaderName.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       module.exports = function normalizeHeaderName(headers, normalizedName) {
@@ -312,9 +290,9 @@
     }
   });
 
-  // node_modules/axios/lib/core/enhanceError.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/enhanceError.js
   var require_enhanceError = __commonJS({
-    "node_modules/axios/lib/core/enhanceError.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/enhanceError.js"(exports, module) {
       "use strict";
       module.exports = function enhanceError(error, config, code, request, response) {
         error.config = config;
@@ -343,9 +321,9 @@
     }
   });
 
-  // node_modules/axios/lib/core/createError.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/createError.js
   var require_createError = __commonJS({
-    "node_modules/axios/lib/core/createError.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/createError.js"(exports, module) {
       "use strict";
       var enhanceError = require_enhanceError();
       module.exports = function createError(message, config, code, request, response) {
@@ -355,9 +333,9 @@
     }
   });
 
-  // node_modules/axios/lib/core/settle.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/settle.js
   var require_settle = __commonJS({
-    "node_modules/axios/lib/core/settle.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/settle.js"(exports, module) {
       "use strict";
       var createError = require_createError();
       module.exports = function settle(resolve, reject, response) {
@@ -371,9 +349,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/cookies.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/cookies.js
   var require_cookies = __commonJS({
-    "node_modules/axios/lib/helpers/cookies.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/cookies.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       module.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
@@ -417,9 +395,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/isAbsoluteURL.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/isAbsoluteURL.js
   var require_isAbsoluteURL = __commonJS({
-    "node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/isAbsoluteURL.js"(exports, module) {
       "use strict";
       module.exports = function isAbsoluteURL(url) {
         return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
@@ -427,9 +405,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/combineURLs.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/combineURLs.js
   var require_combineURLs = __commonJS({
-    "node_modules/axios/lib/helpers/combineURLs.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/combineURLs.js"(exports, module) {
       "use strict";
       module.exports = function combineURLs(baseURL, relativeURL) {
         return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
@@ -437,9 +415,9 @@
     }
   });
 
-  // node_modules/axios/lib/core/buildFullPath.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/buildFullPath.js
   var require_buildFullPath = __commonJS({
-    "node_modules/axios/lib/core/buildFullPath.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/buildFullPath.js"(exports, module) {
       "use strict";
       var isAbsoluteURL = require_isAbsoluteURL();
       var combineURLs = require_combineURLs();
@@ -452,9 +430,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/parseHeaders.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/parseHeaders.js
   var require_parseHeaders = __commonJS({
-    "node_modules/axios/lib/helpers/parseHeaders.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/parseHeaders.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       var ignoreDuplicateOf = [
@@ -504,9 +482,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/isURLSameOrigin.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/isURLSameOrigin.js
   var require_isURLSameOrigin = __commonJS({
-    "node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/isURLSameOrigin.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       module.exports = utils.isStandardBrowserEnv() ? function standardBrowserEnv() {
@@ -544,9 +522,9 @@
     }
   });
 
-  // node_modules/axios/lib/adapters/xhr.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/adapters/xhr.js
   var require_xhr = __commonJS({
-    "node_modules/axios/lib/adapters/xhr.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/adapters/xhr.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       var settle = require_settle();
@@ -560,6 +538,7 @@
         return new Promise(function dispatchXhrRequest(resolve, reject) {
           var requestData = config.data;
           var requestHeaders = config.headers;
+          var responseType = config.responseType;
           if (utils.isFormData(requestData)) {
             delete requestHeaders["Content-Type"];
           }
@@ -572,15 +551,12 @@
           var fullPath = buildFullPath(config.baseURL, config.url);
           request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
           request.timeout = config.timeout;
-          request.onreadystatechange = function handleLoad() {
-            if (!request || request.readyState !== 4) {
-              return;
-            }
-            if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
+          function onloadend() {
+            if (!request) {
               return;
             }
             var responseHeaders = "getAllResponseHeaders" in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-            var responseData = !config.responseType || config.responseType === "text" ? request.responseText : request.response;
+            var responseData = !responseType || responseType === "text" || responseType === "json" ? request.responseText : request.response;
             var response = {
               data: responseData,
               status: request.status,
@@ -591,7 +567,20 @@
             };
             settle(resolve, reject, response);
             request = null;
-          };
+          }
+          if ("onloadend" in request) {
+            request.onloadend = onloadend;
+          } else {
+            request.onreadystatechange = function handleLoad() {
+              if (!request || request.readyState !== 4) {
+                return;
+              }
+              if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf("file:") === 0)) {
+                return;
+              }
+              setTimeout(onloadend);
+            };
+          }
           request.onabort = function handleAbort() {
             if (!request) {
               return;
@@ -608,7 +597,7 @@
             if (config.timeoutErrorMessage) {
               timeoutErrorMessage = config.timeoutErrorMessage;
             }
-            reject(createError(timeoutErrorMessage, config, "ECONNABORTED", request));
+            reject(createError(timeoutErrorMessage, config, config.transitional && config.transitional.clarifyTimeoutError ? "ETIMEDOUT" : "ECONNABORTED", request));
             request = null;
           };
           if (utils.isStandardBrowserEnv()) {
@@ -629,14 +618,8 @@
           if (!utils.isUndefined(config.withCredentials)) {
             request.withCredentials = !!config.withCredentials;
           }
-          if (config.responseType) {
-            try {
-              request.responseType = config.responseType;
-            } catch (e) {
-              if (config.responseType !== "json") {
-                throw e;
-              }
-            }
+          if (responseType && responseType !== "json") {
+            request.responseType = config.responseType;
           }
           if (typeof config.onDownloadProgress === "function") {
             request.addEventListener("progress", config.onDownloadProgress);
@@ -663,12 +646,13 @@
     }
   });
 
-  // node_modules/axios/lib/defaults.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/defaults.js
   var require_defaults = __commonJS({
-    "node_modules/axios/lib/defaults.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/defaults.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       var normalizeHeaderName = require_normalizeHeaderName();
+      var enhanceError = require_enhanceError();
       var DEFAULT_CONTENT_TYPE = {
         "Content-Type": "application/x-www-form-urlencoded"
       };
@@ -686,7 +670,25 @@
         }
         return adapter;
       }
+      function stringifySafely(rawValue, parser, encoder) {
+        if (utils.isString(rawValue)) {
+          try {
+            (parser || JSON.parse)(rawValue);
+            return utils.trim(rawValue);
+          } catch (e) {
+            if (e.name !== "SyntaxError") {
+              throw e;
+            }
+          }
+        }
+        return (encoder || JSON.stringify)(rawValue);
+      }
       var defaults = {
+        transitional: {
+          silentJSONParsing: true,
+          forcedJSONParsing: true,
+          clarifyTimeoutError: false
+        },
         adapter: getDefaultAdapter(),
         transformRequest: [function transformRequest(data, headers) {
           normalizeHeaderName(headers, "Accept");
@@ -701,17 +703,27 @@
             setContentTypeIfUnset(headers, "application/x-www-form-urlencoded;charset=utf-8");
             return data.toString();
           }
-          if (utils.isObject(data)) {
-            setContentTypeIfUnset(headers, "application/json;charset=utf-8");
-            return JSON.stringify(data);
+          if (utils.isObject(data) || headers && headers["Content-Type"] === "application/json") {
+            setContentTypeIfUnset(headers, "application/json");
+            return stringifySafely(data);
           }
           return data;
         }],
         transformResponse: [function transformResponse(data) {
-          if (typeof data === "string") {
+          var transitional = this.transitional;
+          var silentJSONParsing = transitional && transitional.silentJSONParsing;
+          var forcedJSONParsing = transitional && transitional.forcedJSONParsing;
+          var strictJSONParsing = !silentJSONParsing && this.responseType === "json";
+          if (strictJSONParsing || forcedJSONParsing && utils.isString(data) && data.length) {
             try {
-              data = JSON.parse(data);
+              return JSON.parse(data);
             } catch (e) {
+              if (strictJSONParsing) {
+                if (e.name === "SyntaxError") {
+                  throw enhanceError(e, this, "E_JSON_PARSE");
+                }
+                throw e;
+              }
             }
           }
           return data;
@@ -740,9 +752,35 @@
     }
   });
 
-  // node_modules/axios/lib/core/dispatchRequest.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/transformData.js
+  var require_transformData = __commonJS({
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/transformData.js"(exports, module) {
+      "use strict";
+      var utils = require_utils();
+      var defaults = require_defaults();
+      module.exports = function transformData(data, headers, fns) {
+        var context = this || defaults;
+        utils.forEach(fns, function transform(fn) {
+          data = fn.call(context, data, headers);
+        });
+        return data;
+      };
+    }
+  });
+
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/cancel/isCancel.js
+  var require_isCancel = __commonJS({
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/cancel/isCancel.js"(exports, module) {
+      "use strict";
+      module.exports = function isCancel(value) {
+        return !!(value && value.__CANCEL__);
+      };
+    }
+  });
+
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/dispatchRequest.js
   var require_dispatchRequest = __commonJS({
-    "node_modules/axios/lib/core/dispatchRequest.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/dispatchRequest.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       var transformData = require_transformData();
@@ -756,7 +794,7 @@
       module.exports = function dispatchRequest(config) {
         throwIfCancellationRequested(config);
         config.headers = config.headers || {};
-        config.data = transformData(config.data, config.headers, config.transformRequest);
+        config.data = transformData.call(config, config.data, config.headers, config.transformRequest);
         config.headers = utils.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers);
         utils.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function cleanHeaderConfig(method) {
           delete config.headers[method];
@@ -764,13 +802,13 @@
         var adapter = config.adapter || defaults.adapter;
         return adapter(config).then(function onAdapterResolution(response) {
           throwIfCancellationRequested(config);
-          response.data = transformData(response.data, response.headers, config.transformResponse);
+          response.data = transformData.call(config, response.data, response.headers, config.transformResponse);
           return response;
         }, function onAdapterRejection(reason) {
           if (!isCancel(reason)) {
             throwIfCancellationRequested(config);
             if (reason && reason.response) {
-              reason.response.data = transformData(reason.response.data, reason.response.headers, config.transformResponse);
+              reason.response.data = transformData.call(config, reason.response.data, reason.response.headers, config.transformResponse);
             }
           }
           return Promise.reject(reason);
@@ -779,9 +817,9 @@
     }
   });
 
-  // node_modules/axios/lib/core/mergeConfig.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/mergeConfig.js
   var require_mergeConfig = __commonJS({
-    "node_modules/axios/lib/core/mergeConfig.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/mergeConfig.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       module.exports = function mergeConfig(config1, config2) {
@@ -862,15 +900,178 @@
     }
   });
 
-  // node_modules/axios/lib/core/Axios.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/package.json
+  var require_package = __commonJS({
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/package.json"(exports, module) {
+      module.exports = {
+        name: "axios",
+        version: "0.21.4",
+        description: "Promise based HTTP client for the browser and node.js",
+        main: "index.js",
+        scripts: {
+          test: "grunt test",
+          start: "node ./sandbox/server.js",
+          build: "NODE_ENV=production grunt build",
+          preversion: "npm test",
+          version: "npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json",
+          postversion: "git push && git push --tags",
+          examples: "node ./examples/server.js",
+          coveralls: "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+          fix: "eslint --fix lib/**/*.js"
+        },
+        repository: {
+          type: "git",
+          url: "https://github.com/axios/axios.git"
+        },
+        keywords: [
+          "xhr",
+          "http",
+          "ajax",
+          "promise",
+          "node"
+        ],
+        author: "Matt Zabriskie",
+        license: "MIT",
+        bugs: {
+          url: "https://github.com/axios/axios/issues"
+        },
+        homepage: "https://axios-http.com",
+        devDependencies: {
+          coveralls: "^3.0.0",
+          "es6-promise": "^4.2.4",
+          grunt: "^1.3.0",
+          "grunt-banner": "^0.6.0",
+          "grunt-cli": "^1.2.0",
+          "grunt-contrib-clean": "^1.1.0",
+          "grunt-contrib-watch": "^1.0.0",
+          "grunt-eslint": "^23.0.0",
+          "grunt-karma": "^4.0.0",
+          "grunt-mocha-test": "^0.13.3",
+          "grunt-ts": "^6.0.0-beta.19",
+          "grunt-webpack": "^4.0.2",
+          "istanbul-instrumenter-loader": "^1.0.0",
+          "jasmine-core": "^2.4.1",
+          karma: "^6.3.2",
+          "karma-chrome-launcher": "^3.1.0",
+          "karma-firefox-launcher": "^2.1.0",
+          "karma-jasmine": "^1.1.1",
+          "karma-jasmine-ajax": "^0.1.13",
+          "karma-safari-launcher": "^1.0.0",
+          "karma-sauce-launcher": "^4.3.6",
+          "karma-sinon": "^1.0.5",
+          "karma-sourcemap-loader": "^0.3.8",
+          "karma-webpack": "^4.0.2",
+          "load-grunt-tasks": "^3.5.2",
+          minimist: "^1.2.0",
+          mocha: "^8.2.1",
+          sinon: "^4.5.0",
+          "terser-webpack-plugin": "^4.2.3",
+          typescript: "^4.0.5",
+          "url-search-params": "^0.10.0",
+          webpack: "^4.44.2",
+          "webpack-dev-server": "^3.11.0"
+        },
+        browser: {
+          "./lib/adapters/http.js": "./lib/adapters/xhr.js"
+        },
+        jsdelivr: "dist/axios.min.js",
+        unpkg: "dist/axios.min.js",
+        typings: "./index.d.ts",
+        dependencies: {
+          "follow-redirects": "^1.14.0"
+        },
+        bundlesize: [
+          {
+            path: "./dist/axios.min.js",
+            threshold: "5kB"
+          }
+        ]
+      };
+    }
+  });
+
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/validator.js
+  var require_validator = __commonJS({
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/validator.js"(exports, module) {
+      "use strict";
+      var pkg = require_package();
+      var validators = {};
+      ["object", "boolean", "number", "function", "string", "symbol"].forEach(function(type, i) {
+        validators[type] = function validator(thing) {
+          return typeof thing === type || "a" + (i < 1 ? "n " : " ") + type;
+        };
+      });
+      var deprecatedWarnings = {};
+      var currentVerArr = pkg.version.split(".");
+      function isOlderVersion(version, thanVersion) {
+        var pkgVersionArr = thanVersion ? thanVersion.split(".") : currentVerArr;
+        var destVer = version.split(".");
+        for (var i = 0; i < 3; i++) {
+          if (pkgVersionArr[i] > destVer[i]) {
+            return true;
+          } else if (pkgVersionArr[i] < destVer[i]) {
+            return false;
+          }
+        }
+        return false;
+      }
+      validators.transitional = function transitional(validator, version, message) {
+        var isDeprecated = version && isOlderVersion(version);
+        function formatMessage(opt, desc) {
+          return "[Axios v" + pkg.version + "] Transitional option '" + opt + "'" + desc + (message ? ". " + message : "");
+        }
+        return function(value, opt, opts) {
+          if (validator === false) {
+            throw new Error(formatMessage(opt, " has been removed in " + version));
+          }
+          if (isDeprecated && !deprecatedWarnings[opt]) {
+            deprecatedWarnings[opt] = true;
+            console.warn(formatMessage(opt, " has been deprecated since v" + version + " and will be removed in the near future"));
+          }
+          return validator ? validator(value, opt, opts) : true;
+        };
+      };
+      function assertOptions(options, schema, allowUnknown) {
+        if (typeof options !== "object") {
+          throw new TypeError("options must be an object");
+        }
+        var keys = Object.keys(options);
+        var i = keys.length;
+        while (i-- > 0) {
+          var opt = keys[i];
+          var validator = schema[opt];
+          if (validator) {
+            var value = options[opt];
+            var result = value === void 0 || validator(value, opt, options);
+            if (result !== true) {
+              throw new TypeError("option " + opt + " must be " + result);
+            }
+            continue;
+          }
+          if (allowUnknown !== true) {
+            throw Error("Unknown option " + opt);
+          }
+        }
+      }
+      module.exports = {
+        isOlderVersion,
+        assertOptions,
+        validators
+      };
+    }
+  });
+
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/Axios.js
   var require_Axios = __commonJS({
-    "node_modules/axios/lib/core/Axios.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/core/Axios.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       var buildURL = require_buildURL();
       var InterceptorManager = require_InterceptorManager();
       var dispatchRequest = require_dispatchRequest();
       var mergeConfig = require_mergeConfig();
+      var validator = require_validator();
+      var validators = validator.validators;
       function Axios(instanceConfig) {
         this.defaults = instanceConfig;
         this.interceptors = {
@@ -893,16 +1094,56 @@
         } else {
           config.method = "get";
         }
-        var chain = [dispatchRequest, void 0];
-        var promise = Promise.resolve(config);
+        var transitional = config.transitional;
+        if (transitional !== void 0) {
+          validator.assertOptions(transitional, {
+            silentJSONParsing: validators.transitional(validators.boolean, "1.0.0"),
+            forcedJSONParsing: validators.transitional(validators.boolean, "1.0.0"),
+            clarifyTimeoutError: validators.transitional(validators.boolean, "1.0.0")
+          }, false);
+        }
+        var requestInterceptorChain = [];
+        var synchronousRequestInterceptors = true;
         this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-          chain.unshift(interceptor.fulfilled, interceptor.rejected);
+          if (typeof interceptor.runWhen === "function" && interceptor.runWhen(config) === false) {
+            return;
+          }
+          synchronousRequestInterceptors = synchronousRequestInterceptors && interceptor.synchronous;
+          requestInterceptorChain.unshift(interceptor.fulfilled, interceptor.rejected);
         });
+        var responseInterceptorChain = [];
         this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-          chain.push(interceptor.fulfilled, interceptor.rejected);
+          responseInterceptorChain.push(interceptor.fulfilled, interceptor.rejected);
         });
-        while (chain.length) {
-          promise = promise.then(chain.shift(), chain.shift());
+        var promise;
+        if (!synchronousRequestInterceptors) {
+          var chain = [dispatchRequest, void 0];
+          Array.prototype.unshift.apply(chain, requestInterceptorChain);
+          chain = chain.concat(responseInterceptorChain);
+          promise = Promise.resolve(config);
+          while (chain.length) {
+            promise = promise.then(chain.shift(), chain.shift());
+          }
+          return promise;
+        }
+        var newConfig = config;
+        while (requestInterceptorChain.length) {
+          var onFulfilled = requestInterceptorChain.shift();
+          var onRejected = requestInterceptorChain.shift();
+          try {
+            newConfig = onFulfilled(newConfig);
+          } catch (error) {
+            onRejected(error);
+            break;
+          }
+        }
+        try {
+          promise = dispatchRequest(newConfig);
+        } catch (error) {
+          return Promise.reject(error);
+        }
+        while (responseInterceptorChain.length) {
+          promise = promise.then(responseInterceptorChain.shift(), responseInterceptorChain.shift());
         }
         return promise;
       };
@@ -932,9 +1173,9 @@
     }
   });
 
-  // node_modules/axios/lib/cancel/Cancel.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/cancel/Cancel.js
   var require_Cancel = __commonJS({
-    "node_modules/axios/lib/cancel/Cancel.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/cancel/Cancel.js"(exports, module) {
       "use strict";
       function Cancel(message) {
         this.message = message;
@@ -947,9 +1188,9 @@
     }
   });
 
-  // node_modules/axios/lib/cancel/CancelToken.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/cancel/CancelToken.js
   var require_CancelToken = __commonJS({
-    "node_modules/axios/lib/cancel/CancelToken.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/cancel/CancelToken.js"(exports, module) {
       "use strict";
       var Cancel = require_Cancel();
       function CancelToken(executor) {
@@ -988,9 +1229,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/spread.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/spread.js
   var require_spread = __commonJS({
-    "node_modules/axios/lib/helpers/spread.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/spread.js"(exports, module) {
       "use strict";
       module.exports = function spread(callback) {
         return function wrap(arr) {
@@ -1000,9 +1241,9 @@
     }
   });
 
-  // node_modules/axios/lib/helpers/isAxiosError.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/isAxiosError.js
   var require_isAxiosError = __commonJS({
-    "node_modules/axios/lib/helpers/isAxiosError.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/helpers/isAxiosError.js"(exports, module) {
       "use strict";
       module.exports = function isAxiosError(payload) {
         return typeof payload === "object" && payload.isAxiosError === true;
@@ -1010,9 +1251,9 @@
     }
   });
 
-  // node_modules/axios/lib/axios.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/axios.js
   var require_axios = __commonJS({
-    "node_modules/axios/lib/axios.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/lib/axios.js"(exports, module) {
       "use strict";
       var utils = require_utils();
       var bind = require_bind();
@@ -1044,9 +1285,9 @@
     }
   });
 
-  // node_modules/axios/index.js
+  // ../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/index.js
   var require_axios2 = __commonJS({
-    "node_modules/axios/index.js"(exports, module) {
+    "../../node_modules/.pnpm/axios@0.21.4/node_modules/axios/index.js"(exports, module) {
       module.exports = require_axios();
     }
   });
@@ -1077,8 +1318,14 @@
     "unlink",
     "UNLINK"
   ];
+  var AXIOS_INSTANCE = Symbol();
+  var OPTION_RAW = Symbol();
+  var API_STORE = Symbol();
+  var MODULE_STORE = Symbol();
+  var HOOKS = Symbol();
+  var ADDON_URL = Symbol();
 
-  // node_modules/path-to-regexp/dist.es2015/index.js
+  // ../../node_modules/.pnpm/path-to-regexp@6.2.1/node_modules/path-to-regexp/dist.es2015/index.js
   function lexer(str) {
     var tokens = [];
     var i = 0;
@@ -1112,7 +1359,7 @@
           break;
         }
         if (!name)
-          throw new TypeError("Missing parameter name at " + i);
+          throw new TypeError("Missing parameter name at ".concat(i));
         tokens.push({ type: "NAME", index: i, value: name });
         i = j;
         continue;
@@ -1122,7 +1369,7 @@
         var pattern = "";
         var j = i + 1;
         if (str[j] === "?") {
-          throw new TypeError('Pattern cannot start with "?" at ' + j);
+          throw new TypeError('Pattern cannot start with "?" at '.concat(j));
         }
         while (j < str.length) {
           if (str[j] === "\\") {
@@ -1138,15 +1385,15 @@
           } else if (str[j] === "(") {
             count++;
             if (str[j + 1] !== "?") {
-              throw new TypeError("Capturing groups are not allowed at " + j);
+              throw new TypeError("Capturing groups are not allowed at ".concat(j));
             }
           }
           pattern += str[j++];
         }
         if (count)
-          throw new TypeError("Unbalanced pattern at " + i);
+          throw new TypeError("Unbalanced pattern at ".concat(i));
         if (!pattern)
-          throw new TypeError("Missing pattern at " + i);
+          throw new TypeError("Missing pattern at ".concat(i));
         tokens.push({ type: "PATTERN", index: i, value: pattern });
         i = j;
         continue;
@@ -1161,8 +1408,8 @@
       options = {};
     }
     var tokens = lexer(str);
-    var _a2 = options.prefixes, prefixes = _a2 === void 0 ? "./" : _a2;
-    var defaultPattern = "[^" + escapeString(options.delimiter || "/#?") + "]+?";
+    var _a = options.prefixes, prefixes = _a === void 0 ? "./" : _a;
+    var defaultPattern = "[^".concat(escapeString(options.delimiter || "/#?"), "]+?");
     var result = [];
     var key = 0;
     var i = 0;
@@ -1175,8 +1422,8 @@
       var value2 = tryConsume(type);
       if (value2 !== void 0)
         return value2;
-      var _a3 = tokens[i], nextType = _a3.type, index = _a3.index;
-      throw new TypeError("Unexpected " + nextType + " at " + index + ", expected " + type);
+      var _a2 = tokens[i], nextType = _a2.type, index = _a2.index;
+      throw new TypeError("Unexpected ".concat(nextType, " at ").concat(index, ", expected ").concat(type));
     };
     var consumeText = function() {
       var result2 = "";
@@ -1266,7 +1513,7 @@
     var parts = paths.map(function(path) {
       return pathToRegexp(path, keys, options).source;
     });
-    return new RegExp("(?:" + parts.join("|") + ")", flags(options));
+    return new RegExp("(?:".concat(parts.join("|"), ")"), flags(options));
   }
   function stringToRegexp(path, keys, options) {
     return tokensToRegexp(parse(path, options), keys, options);
@@ -1275,11 +1522,11 @@
     if (options === void 0) {
       options = {};
     }
-    var _a2 = options.strict, strict = _a2 === void 0 ? false : _a2, _b2 = options.start, start = _b2 === void 0 ? true : _b2, _c2 = options.end, end = _c2 === void 0 ? true : _c2, _d2 = options.encode, encode = _d2 === void 0 ? function(x) {
+    var _a = options.strict, strict = _a === void 0 ? false : _a, _b = options.start, start = _b === void 0 ? true : _b, _c = options.end, end = _c === void 0 ? true : _c, _d = options.encode, encode = _d === void 0 ? function(x) {
       return x;
-    } : _d2;
-    var endsWith = "[" + escapeString(options.endsWith || "") + "]|$";
-    var delimiter = "[" + escapeString(options.delimiter || "/#?") + "]";
+    } : _d, _e = options.delimiter, delimiter = _e === void 0 ? "/#?" : _e, _f = options.endsWith, endsWith = _f === void 0 ? "" : _f;
+    var endsWithRe = "[".concat(escapeString(endsWith), "]|$");
+    var delimiterRe = "[".concat(escapeString(delimiter), "]");
     var route = start ? "^" : "";
     for (var _i = 0, tokens_1 = tokens; _i < tokens_1.length; _i++) {
       var token = tokens_1[_i];
@@ -1294,30 +1541,34 @@
           if (prefix || suffix) {
             if (token.modifier === "+" || token.modifier === "*") {
               var mod = token.modifier === "*" ? "?" : "";
-              route += "(?:" + prefix + "((?:" + token.pattern + ")(?:" + suffix + prefix + "(?:" + token.pattern + "))*)" + suffix + ")" + mod;
+              route += "(?:".concat(prefix, "((?:").concat(token.pattern, ")(?:").concat(suffix).concat(prefix, "(?:").concat(token.pattern, "))*)").concat(suffix, ")").concat(mod);
             } else {
-              route += "(?:" + prefix + "(" + token.pattern + ")" + suffix + ")" + token.modifier;
+              route += "(?:".concat(prefix, "(").concat(token.pattern, ")").concat(suffix, ")").concat(token.modifier);
             }
           } else {
-            route += "(" + token.pattern + ")" + token.modifier;
+            if (token.modifier === "+" || token.modifier === "*") {
+              route += "((?:".concat(token.pattern, ")").concat(token.modifier, ")");
+            } else {
+              route += "(".concat(token.pattern, ")").concat(token.modifier);
+            }
           }
         } else {
-          route += "(?:" + prefix + suffix + ")" + token.modifier;
+          route += "(?:".concat(prefix).concat(suffix, ")").concat(token.modifier);
         }
       }
     }
     if (end) {
       if (!strict)
-        route += delimiter + "?";
-      route += !options.endsWith ? "$" : "(?=" + endsWith + ")";
+        route += "".concat(delimiterRe, "?");
+      route += !options.endsWith ? "$" : "(?=".concat(endsWithRe, ")");
     } else {
       var endToken = tokens[tokens.length - 1];
-      var isEndDelimited = typeof endToken === "string" ? delimiter.indexOf(endToken[endToken.length - 1]) > -1 : endToken === void 0;
+      var isEndDelimited = typeof endToken === "string" ? delimiterRe.indexOf(endToken[endToken.length - 1]) > -1 : endToken === void 0;
       if (!strict) {
-        route += "(?:" + delimiter + "(?=" + endsWith + "))?";
+        route += "(?:".concat(delimiterRe, "(?=").concat(endsWithRe, "))?");
       }
       if (!isEndDelimited) {
-        route += "(?=" + delimiter + "|" + endsWith + ")";
+        route += "(?=".concat(delimiterRe, "|").concat(endsWithRe, ")");
       }
     }
     return new RegExp(route, flags(options));
@@ -1377,26 +1628,19 @@
   }
 
   // src/index.ts
-  var AXIOS_INSTANCE = Symbol();
-  var OPTION_RAW = Symbol();
-  var API_STORE = Symbol();
-  var MODULE_STORE = Symbol();
-  var HOOKS = Symbol();
-  var ADDON_URL = Symbol();
-  var _a, _b, _c, _d, _e, _f;
-  var _Http = class {
-    [_a];
-    [_b];
-    [_c] = new Map();
-    [_d] = new Map();
-    [_e] = {
+  var Http = class {
+    [OPTION_RAW];
+    [AXIOS_INSTANCE];
+    [API_STORE] = new Map();
+    [MODULE_STORE] = new Map();
+    [HOOKS] = {
       success: [],
       fail: [],
       before: [],
       after: [],
       beforeTransform: []
     };
-    [_f] = "";
+    [ADDON_URL] = "";
     constructor(options, fModule) {
       const { hooks, modules, APIs, axiosOptions, baseURL, url } = optionSplit(options);
       this[OPTION_RAW] = options;
@@ -1404,7 +1648,7 @@
         if (fModule) {
           return fModule[AXIOS_INSTANCE];
         }
-        return import_axios.default.create(Object.assign(axiosOptions, { baseURL: baseURL || url }));
+        return import_axios.default.create(Object.assign(axiosOptions || {}, { baseURL: baseURL || url }));
       })();
       this[ADDON_URL] = (() => {
         if (!fModule)
@@ -1431,8 +1675,8 @@
             if (typeof api === "function")
               return api;
             if (typeof api === "boolean" && api)
-              return _Http.defineAPI({});
-            return _Http.defineAPI(api);
+              return Http.defineAPI({});
+            return Http.defineAPI(api);
           })();
           this[API_STORE].set(name, _api(this, name));
         }
@@ -1443,10 +1687,10 @@
         }
       }
     }
-    static defineAPI(localOption = {}) {
-      return ($http, name) => {
-        const result = new Proxy(async (payload) => {
-          let result2 = null;
+    static defineAPI(options) {
+      const api = ($http, name) => {
+        const shadow = async (payload) => {
+          let result2;
           const hooks = {
             success: [],
             fail: [],
@@ -1454,9 +1698,9 @@
             after: [],
             beforeTransform: []
           };
-          const { hooks: localeHooks, ...rest } = localOption;
-          hooks.before.push(function urlPreHandle(options) {
-            const { url, ...rest2 } = options;
+          const { hooks: localeHooks, ...rest } = options;
+          hooks.before.push(function urlPreHandle(_options) {
+            const { url, ...rest2 } = _options;
             const _url = (() => {
               if (url && ["http", "https"].some((p) => url.startsWith(p))) {
                 return url;
@@ -1465,8 +1709,8 @@
             })();
             return { url: _url, ...rest2 };
           });
-          hooks.before.push(function methodPreHandle(options) {
-            const { method, ...rest2 } = options;
+          hooks.before.push(function methodPreHandle(_options) {
+            const { method, ...rest2 } = _options;
             const _method = (() => {
               if (!method && methods.includes(name)) {
                 return name;
@@ -1518,21 +1762,24 @@
             func(_option);
           });
           return result2;
-        }, {
-          apply(target, thisArg, argumentsList) {
-            return target(...argumentsList);
+        };
+        const result = new Proxy(shadow, {
+          apply(target, thisArg, args) {
+            return target(...args);
           },
           get(target, property) {
-            if (typeof property === "string")
-              return localOption[property];
+            if (typeof property === "string") {
+              return options[property];
+            }
             return void 0;
           }
         });
         return result;
       };
+      return api;
     }
     static createHttp(options, fModule) {
-      const httpInstance = new _Http(options, fModule);
+      const httpInstance = new Http(options, fModule);
       const shadowFunc = () => {
       };
       const result = new Proxy(shadowFunc, {
@@ -1557,16 +1804,11 @@
             moduleStore.delete(name);
           }
           return true;
-        },
-        apply: function(target, thisArg, argumentsList) {
-          return import_axios.default.request(argumentsList[0]);
         }
       });
       return result;
     }
   };
-  var Http = _Http;
-  _a = OPTION_RAW, _b = AXIOS_INSTANCE, _c = API_STORE, _d = MODULE_STORE, _e = HOOKS, _f = ADDON_URL;
   var defineAPI = Http.defineAPI;
   var createHttp = Http.createHttp;
 })();

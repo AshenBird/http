@@ -16,8 +16,8 @@
     "types": [ ],
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
     "declaration": true,
-    "declarationDir": "dist/"
+    "declarationDir": "dist"
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/type.d.tsd.tssrc/type.d.tsype.d.ts", "type.d.ts"],
   "exclude": ["node_modules"]
 }
