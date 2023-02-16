@@ -1,7 +1,7 @@
 {
   "name": "@mcswift/http",
-  "version": "0.2.0",
-  "description": "a axios wrap",
+  "version": "0.2.1",
+  "description": "a type-safe http api client",
   "author": {
     "name": "McSwift",
     "email": "develop@mcswift.pro"
@@ -9,9 +9,6 @@
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
-  "exports":{
-    "types":"./src/type.d.ts"
-  },
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -23,6 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/AshenBird/http.git"
   },
+  "homepage": "https://github.com/AshenBird/http",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
